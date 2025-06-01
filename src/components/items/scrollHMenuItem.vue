@@ -82,7 +82,7 @@ export default {
             { name: 'Champion', icon: '/images/home-imgs/scroll-sections/marcas/champion.png' },
             { name: 'Continental', icon: '/images/home-imgs/scroll-sections/marcas/continental.png' },
             { name: 'Dai', icon: '/images/home-imgs/scroll-sections/marcas/dai.png' },
-            { name: 'Pfdiesel', icon: '/images/home-imgs/scroll-sections/marcas/pfdiesel.png' },
+            { name: 'Fpdiesel', icon: '/images/home-imgs/scroll-sections/marcas/fpdiesel.png' },
             { name: 'Freon', icon: '/images/home-imgs/scroll-sections/marcas/freon.png' },
             { name: 'Gabriel', icon: '/images/home-imgs/scroll-sections/marcas/gabriel.png' },
             { name: 'Gates', icon: '/images/home-imgs/scroll-sections/marcas/gates.png' },
@@ -261,24 +261,20 @@ export default {
 }
 
 .canvas {
-  display: flex;
-  overflow-x: auto;
+  
+  /* border-radius: 6px; */
+    display: flex;
+ /* overflow-y: auto;  habilita scroll horizontal */
+  overflow-x: hidden; /* desactiva scroll vertical */
   scroll-snap-type: x mandatory;
-  overflow-y: scroll;
-  /*activa scroll control vertical */
-  overflow-x: hidden;
-  /* desactiva el scroll horizontal */
-  /* scrollbar-width: none; */
   scroll-behavior: smooth;
   width: 100%;
   height: 60vh;
-  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   outline: none;
   cursor: default;
   user-select: none;
   border: 1.5px solid var(--red-brand);
-  /* border-radius: 6px; */
 }
 
 .canvas:active {
@@ -288,7 +284,7 @@ export default {
 .canvas-section {
   scroll-snap-align: start;
   flex: 0 0 100%;
-  height: 100%;
+  width: 100%;
   padding: 2rem;
   box-sizing: border-box;
   background: var(--main-light);
@@ -334,4 +330,22 @@ export default {
   font-size: 0.9rem;
   color: #333;
 }
+/* Responsive */
+@media (max-width: 768px) {
+  .icon-grid {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .icon-item {
+    max-width: 80px;
+    padding: 0.5rem;
+  }
+
+  .icon-item span {
+    font-size: 0.8rem;
+  }
+}
+
+
 </style>
