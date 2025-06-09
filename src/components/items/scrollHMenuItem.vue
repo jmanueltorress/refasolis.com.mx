@@ -1,9 +1,9 @@
 <template>
-  <div style="background: black;">
+  <div class="container-menu-h" style="background: black;">
     <!-- Título principal -->
     <section ref="seccion"
-      style="height: 100vh; background: #f0f0f0; display:flex; justify-content:center; align-items:center;">
-      <h2>Más de {{ contador }} años de trayectoria</h2>
+      style="height: 100vh; background: #ffffff; display:flex; justify-content:center; align-items:center;">
+      <h2>Más de {{ contador }} años en el mercado de refacciones automotrices.</h2>
     </section>
 
     <!-- Submenú + Canvas -->
@@ -212,13 +212,14 @@ export default {
 </script>
 
 <style scoped>
+
 .submenu-container {
   margin: 2rem auto;
   max-width: 1200px;
   width: 95%;
   background: var(--main-light);
   /* border-radius: 8px; */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px rgb(255, 255, 255);
   padding: 1rem;
 }
 
@@ -261,30 +262,24 @@ export default {
 }
 
 .canvas {
-  
-  /* border-radius: 6px; */
-    display: flex;
- /* overflow-y: auto;  habilita scroll horizontal */
-  overflow-x: hidden; /* desactiva scroll vertical */
+  display: flex;
+  overflow-x: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   width: 100%;
-  height: 60vh;
+  height: 60vh; /* Altura fija */
   -webkit-overflow-scrolling: touch;
   outline: none;
   cursor: default;
   user-select: none;
-  border: 1.5px solid var(--red-brand);
-}
-
-.canvas:active {
-  cursor: grabbing;
 }
 
 .canvas-section {
   scroll-snap-align: start;
   flex: 0 0 100%;
   width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Scroll vertical independiente */
   padding: 2rem;
   box-sizing: border-box;
   background: var(--main-light);
@@ -292,9 +287,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  user-select: none;
 }
-
+.canvas:active {
+  cursor: grabbing;
+}
 .icon-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -316,7 +312,9 @@ export default {
   width: 100%;
   max-width: 120px;
 }
-
+.icon-img{
+  width: 70px ;
+}
 .icon-item:hover {
   transform: scale(1.05);
 }
@@ -332,6 +330,9 @@ export default {
 }
 /* Responsive */
 @media (max-width: 768px) {
+  .icon-img{
+  width: 45px ;
+}
   .icon-grid {
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     gap: 0.5rem;
@@ -340,6 +341,11 @@ export default {
   .icon-item {
     max-width: 80px;
     padding: 0.5rem;
+    
+  }
+ 
+   .horizontal-menu a, label{
+    font-size: 10px;
   }
 
   .icon-item span {

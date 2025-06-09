@@ -1,17 +1,56 @@
 <template>
   <div :class="['navMenu', { scrolled, hidden: hideHeader }]">
-    <img :src="logoSrc" alt="Logo" />
-    <nav class="navbar">
+    <!-- Mobile header -->
+    <div class="mobile-header">
+      <img :src="logoSrc" alt="Logo" class="mobile-logo" />
+      <button 
+        class="hamburger-btn" 
+        @click="toggleMobileMenu"
+        :class="{ active: mobileMenuOpen }"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Desktop navigation -->
+    <nav class="navbar desktop-nav">
+      <img :src="logoSrc" alt="Logo" class="desktop-logo" />
       <div class="links-1">
         <router-link to="/">Inicio</router-link>
-        <router-link to="/About">Quienes Somos</router-link>
-        <a href="#">Contáctanos</a>
+        <router-link to="/About">Nosotros</router-link>
+        <router-link to="/contact">Contactanos</router-link>
       </div>
       <div class="links-2">
         <a href="#"><img src="images/header/login-user-icon.png" alt="">Ingresar</a>
         <a href="#"><img src="images/header/shop-icon.png" alt="">Comprar</a>
       </div>
     </nav>
+
+    <!-- Mobile navigation menu -->
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }">
+      <div class="mobile-links">
+        <router-link to="/" @click="closeMobileMenu">Inicio</router-link>
+        <router-link to="/About" @click="closeMobileMenu">Nosotros</router-link>
+        <router-link to="/contact" @click="closeMobileMenu">Contactanos</router-link>
+        <div class="mobile-actions">
+          <a href="#" @click="closeMobileMenu">
+            <img src="images/header/login-user-icon.png" alt="">Ingresar
+          </a>
+          <a href="#" @click="closeMobileMenu">
+            <img src="images/header/shop-icon.png" alt="">Comprar
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div 
+      class="mobile-overlay" 
+      :class="{ active: mobileMenuOpen }"
+      @click="closeMobileMenu"
+    ></div>
   </div>
 </template>
 
@@ -23,10 +62,12 @@ export default {
       scrolled: false,
       hideHeader: false,
       observer: null,
+      mobileMenuOpen: false,
     };
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
 
     this.$nextTick(() => {
       const footer = document.querySelector('footer');
@@ -43,11 +84,26 @@ export default {
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
     if (this.observer) this.observer.disconnect();
   },
   methods: {
     handleScroll() {
       this.scrolled = window.scrollY > 0;
+    },
+    handleResize() {
+      if (window.innerWidth > 768 && this.mobileMenuOpen) {
+        this.closeMobileMenu();
+      }
+    },
+    toggleMobileMenu() {
+      this.mobileMenuOpen = !this.mobileMenuOpen;
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = this.mobileMenuOpen ? 'hidden' : '';
+    },
+    closeMobileMenu() {
+      this.mobileMenuOpen = false;
+      document.body.style.overflow = '';
     }
   },
   computed: {
@@ -85,7 +141,21 @@ export default {
   transform: translateY(-100%);
 }
 
-.navbar {
+/* Mobile header - hidden on desktop */
+.mobile-header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.mobile-logo {
+  height: 120px;
+}
+
+/* Desktop navigation */
+.desktop-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -94,6 +164,13 @@ export default {
   margin: 0 auto;
   padding: 0 2rem;
   box-sizing: border-box;
+}
+
+.desktop-logo {
+  padding-left: 20px;
+  height: 150px;
+  margin-top: -12px;
+  transition: height 0.3s ease;
 }
 
 .links-1,
@@ -114,7 +191,155 @@ export default {
   vertical-align: middle;
 }
 
-/* Estilo base para todos los links */
+/* Hamburger button */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-btn span {
+  width: 30px;
+  height: 3px;
+  background: var(--text-color);
+  border-radius: 2px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.navMenu.scrolled .hamburger-btn span {
+  background: var(--main-dark);
+}
+
+.hamburger-btn.active span:first-child {
+  transform: rotate(45deg);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* Mobile navigation */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 100px;
+  right: -100%;
+  width: 300px;
+  height: calc(100vh - 100px);
+  background: var(--main-dark);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.navMenu.scrolled .mobile-nav {
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav.open {
+  right: 0;
+}
+
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  height: 100%;
+}
+
+.mobile-links > a {
+  padding: 1rem 0;
+  color: var(--text-color);
+  text-decoration: none;
+  font-family: var(--global-font-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: color 0.3s ease;
+}
+
+.navMenu.scrolled .mobile-links > a {
+  color: var(--main-dark);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-links > a:hover,
+.mobile-links > a.router-link-active {
+  color: var(--red-brand);
+}
+
+.mobile-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navMenu.scrolled .mobile-actions {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-actions a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.8rem 0;
+  color: var(--text-color);
+  text-decoration: none;
+  font-family: var(--global-font-family);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navMenu.scrolled .mobile-actions a {
+  color: var(--main-dark);
+}
+
+.mobile-actions a:hover {
+  color: var(--red-brand);
+}
+
+.mobile-actions a img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+}
+
+/* Estilo base para todos los links del desktop */
 .navbar a {
   padding: 0.5rem 1rem;
   color: var(--text-color);
@@ -159,40 +384,42 @@ export default {
   color: var(--main-dark);
 }
 
-.navMenu img {
-  padding-left: 20px;
-  height: 150px;
-  margin-top: -12px;
-  transition: height 0.3s ease;
+/* Media queries */
+@media (max-width: 768px) {
+  .navMenu {
+    height: 80px;
+  }
+
+  /* Show mobile header, hide desktop nav */
+  .mobile-header {
+    display: flex;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  /* Show mobile nav and overlay */
+  .mobile-nav,
+  .mobile-overlay {
+    display: block;
+  }
+
+  .mobile-nav {
+    top: 80px;
+    height: calc(100vh - 80px);
+  }
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 2rem;
-  }
-
-  .links-1,
-  .links-2 {
-    flex-direction: column;
+@media (max-width: 480px) {
+  
+  .mobile-nav {
     width: 100%;
+    right: -100%;
   }
 
-  .links-2 a img {
-    width: 18px;
-  }
-
-  .navMenu {
-    height: auto;
-    padding: 1rem 0;
-  }
-
-  .navMenu img {
-    height: 60px;
-    margin-top: 0;
-    padding-left: 0;
+  .mobile-links {
+    padding: 1.5rem;
   }
 }
 </style>

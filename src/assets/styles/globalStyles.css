@@ -6,6 +6,8 @@
     --nav-bar-fontsz-desktop:14px;
     --red-brand:#FF3131;
     --text-color:#ffffff;
+    --enfasis-blue:rgb(24,103,192);
+    --enfasis-blue-hover:rgb(107, 171, 245);
     --global-font-family:'Montserrat', sans-serif;
 }
 body{
@@ -17,7 +19,7 @@ font-family: var(--global-font-family);
 }
 @media (prefers-color-scheme: dark) {
   #app {
-    background-color: #121212; /* fondo oscuro */
-    color: white;              /* texto claro */
+    background-color: #ffffff; /* fondo oscuro */
+    color: black;              /* texto claro */
   }
 }
