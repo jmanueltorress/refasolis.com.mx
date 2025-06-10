@@ -22,7 +22,7 @@
       <div class="footer-col footer-col--center">
         <div class="footer-contact-item">
           <img class="icon" src="/images/footer/mail-icon.png" alt="Email" />
-          <a href="mailto:contacto@solis.com.mx">contacto@solis.com.mx</a>
+          <a href="mailto:refaccionariasolis2011@hotmail.com">refaccionariasolis2011@hotmail.com</a>
         </div>
         <div class="footer-contact-item">
           <img class="icon" src="/images/footer/call-phone-icon.png" alt="Teléfono" />
@@ -30,7 +30,7 @@
         </div>
         <div class="footer-contact-item">
           <img class="i-fb" src="/images/footer/fb-icon.png" alt="Facebook" />
-          <a href="https://www.facebook.com/tu-pagina" target="_blank" rel="noopener">
+          <a href="https://www.facebook.com/profile.php?id=61576335903962&locale=es_LA" target="_blank" rel="noopener">
             Refaccionaria Solis
           </a>
         </div>
@@ -54,14 +54,13 @@
           <router-link to="/contact">Contáctanos</router-link>
         </nav>
         <div class="footer-actions">
-          <router-link to="/shop" class="action-link">
-            <img class="icon action-icon" src="/images/footer/shop-icon.png" alt="Comprar" />
+         
+         <a class="action-link" href="#"> <img class="icon action-icon" src="/images/footer/shop-icon.png" alt="Comprar" />
             Comprar
-          </router-link>
-          <router-link to="/login" class="action-link">
-            <img class="icon action-icon" src="/images/footer/login-user-icon.png" alt="Ingresar" />
+          </a>
+          <a class="action-link" href="#"><img class="icon action-icon" src="/images/footer/login-user-icon.png" alt="Ingresar" />
             Ingresar
-          </router-link>
+          </a>
         </div>
       </div>
     </div>
@@ -77,8 +76,11 @@
         <router-link to="/terms">TÉRMINOS DE USO</router-link>
       </div>
       <div class="footer-bottom-right">
-        <p>SITIO WEB DESARROLLADO POR M</p>
-      </div>
+  <p>
+    SITIO WEB DESARROLLADO POR 
+    <a href="https://github.com/jmanueltorress"><img src="/images/footer/logo-dev.png" alt="Logo-Developer" class="logo-dev" /></a>
+  </p>
+</div>
     </div>
   </footer>
 </template>
@@ -164,7 +166,7 @@ export default {
   transition: color 0.2s;
 }
 .footer-contact-item a:hover {
-  color: rgb(24,103,192);
+  color: var(--enfasis-blue);
 }
 
 /* Navegación y acciones */
@@ -229,7 +231,7 @@ export default {
   transition: color 0.2s;
 }
 .action-link:hover {
-  color: #f39c12;
+  color: var(--enfasis-blue);
 }
 
 /* Línea separadora */
@@ -269,55 +271,70 @@ export default {
   transition: color 0.2s;
 }
 .footer-bottom-left a:hover {
-  color: #f39c12;
+  color: var(--enfasis-blue);
 }
 .footer-bottom-right p {
   margin: 0;
   font-weight: 500;
 }
+.logo-dev {
+  height: 1em;      /* tamaño relativo al texto */
+  vertical-align: middle;
+  margin-left: 4px; /* pequeño espacio después del texto */
+}
 
+/* Responsive */
 /* Responsive */
 @media (max-width: 900px) {
   .footer {
-    padding: 2rem 1.5rem 1rem;
+    padding: 2rem 1rem 1rem;  /* Ajuste de padding */
   }
 
   .footer-main {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
+    align-items: center;  /* Centrar columnas */
+    gap: 1rem;  /* Espaciado reducido entre columnas */
   }
 
   .footer-col--left,
   .footer-col--center,
   .footer-col--right {
-    width: 100%;
+    width: 100%;  /* Asegurar que ocupen el 100% */
+   /* text-align: center;  /* Centrar texto */
+  }
+.footer-col--left{
+  display: none;
+}
+  .footer-logo {
+    
+    margin-bottom: 0.5rem;  /* Reducir margen inferior del logo */
   }
 
   .footer-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-direction: column;  /* Cambiar a columna para mejor visualización */
+    gap: 0.25rem;  /* Espaciado reducido entre enlaces del menú */
   }
 
   .footer-actions {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-direction: column;  /* Cambiar a columna para mejor visualización */
+    gap: 0.25rem;  /* Espaciado reducido entre acciones */
   }
 
   .action-link {
-    flex: 1 1 calc(50% - 0.5rem);
+    width: 100%;  /* Asegurar que ocupen el 100% */
   }
 
   .footer-divider {
-    margin-top: 2rem;
+    margin-top: 1rem;  /* Espaciado reducido */
   }
 
   .footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: center;  /* Centrar contenido */
+    gap: 0.5rem;  /* Espaciado reducido */
   }
 }
+
+
+
 </style>

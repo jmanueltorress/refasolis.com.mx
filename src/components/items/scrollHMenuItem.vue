@@ -1,9 +1,9 @@
 <template>
-  <div style="background: black;">
+  <div class="container-menu-h" style="background: black;">
     <!-- Título principal -->
     <section ref="seccion"
-      style="height: 100vh; background: #f0f0f0; display:flex; justify-content:center; align-items:center;">
-      <h2>Más de {{ contador }} años de trayectoria</h2>
+      style="height: 100vh; background: #ffffff; display:flex; justify-content:center; align-items:center;">
+      <h2>Más de {{ contador }} años en el mercado de refacciones automotrices.</h2>
     </section>
 
     <!-- Submenú + Canvas -->
@@ -82,7 +82,7 @@ export default {
             { name: 'Champion', icon: '/images/home-imgs/scroll-sections/marcas/champion.png' },
             { name: 'Continental', icon: '/images/home-imgs/scroll-sections/marcas/continental.png' },
             { name: 'Dai', icon: '/images/home-imgs/scroll-sections/marcas/dai.png' },
-            { name: 'Pfdiesel', icon: '/images/home-imgs/scroll-sections/marcas/pfdiesel.png' },
+            { name: 'Fpdiesel', icon: '/images/home-imgs/scroll-sections/marcas/fpdiesel.png' },
             { name: 'Freon', icon: '/images/home-imgs/scroll-sections/marcas/freon.png' },
             { name: 'Gabriel', icon: '/images/home-imgs/scroll-sections/marcas/gabriel.png' },
             { name: 'Gates', icon: '/images/home-imgs/scroll-sections/marcas/gates.png' },
@@ -212,13 +212,14 @@ export default {
 </script>
 
 <style scoped>
+
 .submenu-container {
   margin: 2rem auto;
   max-width: 1200px;
   width: 95%;
   background: var(--main-light);
   /* border-radius: 8px; */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px rgb(255, 255, 255);
   padding: 1rem;
 }
 
@@ -262,33 +263,23 @@ export default {
 
 .canvas {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  overflow-y: scroll;
-  /*activa scroll control vertical */
   overflow-x: hidden;
-  /* desactiva el scroll horizontal */
-  /* scrollbar-width: none; */
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   width: 100%;
-  height: 60vh;
-  scroll-snap-type: x mandatory;
+  height: 60vh; /* Altura fija */
   -webkit-overflow-scrolling: touch;
   outline: none;
   cursor: default;
   user-select: none;
-  border: 1.5px solid var(--red-brand);
-  /* border-radius: 6px; */
-}
-
-.canvas:active {
-  cursor: grabbing;
 }
 
 .canvas-section {
   scroll-snap-align: start;
   flex: 0 0 100%;
+  width: 100%;
   height: 100%;
+  overflow-y: auto; /* Scroll vertical independiente */
   padding: 2rem;
   box-sizing: border-box;
   background: var(--main-light);
@@ -296,9 +287,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  user-select: none;
 }
-
+.canvas:active {
+  cursor: grabbing;
+}
 .icon-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -320,7 +312,9 @@ export default {
   width: 100%;
   max-width: 120px;
 }
-
+.icon-img{
+  width: 70px ;
+}
 .icon-item:hover {
   transform: scale(1.05);
 }
@@ -334,4 +328,30 @@ export default {
   font-size: 0.9rem;
   color: #333;
 }
+/* Responsive */
+@media (max-width: 768px) {
+  .icon-img{
+  width: 45px ;
+}
+  .icon-grid {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .icon-item {
+    max-width: 80px;
+    padding: 0.5rem;
+    
+  }
+ 
+   .horizontal-menu a, label{
+    font-size: 10px;
+  }
+
+  .icon-item span {
+    font-size: 0.8rem;
+  }
+}
+
+
 </style>

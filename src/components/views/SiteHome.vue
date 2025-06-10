@@ -3,6 +3,7 @@
     <!-- <h1>{{ mensaje   }}</h1> -->
     <carouselItem />
     <menuHlItem/>
+    <hoursOpItem/>
   </div>
 </template>
 
@@ -10,12 +11,13 @@
 // import CarouselSection from './components/carouselItem.vue'
 import carouselItem from '../items/carouselItem.vue';
 import menuHlItem from '../items/scrollHMenuItem.vue';
+import hoursOpItem from '../items/hoursOpening.vue'
 export default {
   // components: {
   //   CarouselSection
   // },
   name: 'SiteHome',components: {
-    carouselItem,menuHlItem
+    carouselItem,menuHlItem,hoursOpItem
 }
 
   // props: {

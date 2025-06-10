@@ -1,11 +1,19 @@
 <template>
   <div>
-    <h1>Hola desde About</h1>
+    <aboutItem1/>
+    <aboutItem2/>
   </div>
 </template>
 
 <script>
+import aboutItem1 from '../items/aboutItem1.vue'
+import aboutItem2 from '../items/aboutItem2.vue'
 export default {
-  name: 'SiteAbout'
+ 
+  name: 'SiteAbout',components: {
+    aboutItem1,aboutItem2
+}
+
+  
 }
 </script>
