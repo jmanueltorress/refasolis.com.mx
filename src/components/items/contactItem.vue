@@ -7,11 +7,11 @@
         <h2 class="banner">Contáctenos</h2>
       </div>
       <div class="social-icons">
-        <img class="email-ico" src="/images/contact-us/mail.png" alt="Email" />
+        <a href="mailto:refaccionariasolis2011@hotmail.com"><img class="email-ico" src="/images/contact-us/mail.png" alt="Email" /></a>
         
-        <img class="fb-ico" src="/images/contact-us/fb.png" alt="Facebook" />
-        <img src="/images/contact-us/phone.png" alt="Phone" />
-        <img src="/images/contact-us/wp.png" alt="WhatsApp" />
+        <a href="https://www.facebook.com/profile.php?id=61576335903962&locale=es_LA"><img class="fb-ico" src="/images/contact-us/fb.png" alt="Facebook" /></a>
+        <a href="tel:+524286877121"><img src="/images/contact-us/phone.png" alt="Phone" /></a>
+        <a href="https://wa.me/524286877121"><img src="/images/contact-us/wp.png" alt="WhatsApp" /></a>
       </div>
     </div>
 

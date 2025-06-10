@@ -80,7 +80,7 @@
   }
 
   .logo-area {
-    flex-direction: row;
+   padding-left: 20%;
     align-items: center;
     justify-content: center;
   }

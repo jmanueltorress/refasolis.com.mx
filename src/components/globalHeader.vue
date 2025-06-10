@@ -167,7 +167,7 @@ export default {
 }
 
 .desktop-logo {
-  padding-left: 20px;
+  padding-left: 0px;
   height: 150px;
   margin-top: -12px;
   transition: height 0.3s ease;

@@ -74,4 +74,18 @@
 .contenido li {
   margin-bottom: 0.6rem;
 }
+@media (max-width: 768px) {
+  .container-about {
+    flex-direction: column;
+    text-align: center;
+  }
+  .seccion{
+    display: inline;
+  }
+  .seccion .logo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  }
 </style>
