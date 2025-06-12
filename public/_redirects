@@ -5,4 +5,4 @@
 /contact    /contact   200
 
 # Ruta de error 404
-/*    /404.html 404
+/*    /notFound 404
