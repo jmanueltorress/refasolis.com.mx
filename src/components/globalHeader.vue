@@ -1,5 +1,5 @@
 <template>
-  <div :class="['navMenu', { scrolled, hidden: hideHeader }]">
+  <div :class="['navMenu', { scrolled, hidden: hideHeader && !mobileMenuOpen, 'menu-open': mobileMenuOpen }]">
     <!-- Mobile header -->
     <div class="mobile-header">
       <img :src="logoSrc" alt="Logo" class="mobile-logo" />
@@ -55,7 +55,6 @@
     ></div>
   </div>
 </template>
-
 <script>
 export default {
   name: 'navMenu',
@@ -70,19 +69,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleResize);
-
-    this.$nextTick(() => {
-      const footer = document.querySelector('footer');
-      if (footer) {
-        this.observer = new IntersectionObserver(
-          ([entry]) => {
-            this.hideHeader = entry.isIntersecting;
-          },
-          { threshold: 0.1 }
-        );
-        this.observer.observe(footer);
-      }
-    });
+    this.setupObserver();
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -100,12 +87,39 @@ export default {
     },
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen;
-      // Prevent body scroll when menu is open
+
+      // Mostrar header al abrir menú
+      if (this.mobileMenuOpen) {
+        this.hideHeader = false;
+        if (this.observer) this.observer.disconnect(); // Pausar observer
+      } else {
+        this.setupObserver(); // Reanudar observer al cerrar menú
+      }
+
+      // Control scroll del body
       document.body.style.overflow = this.mobileMenuOpen ? 'hidden' : '';
     },
     closeMobileMenu() {
       this.mobileMenuOpen = false;
       document.body.style.overflow = '';
+      this.setupObserver();
+    },
+    setupObserver() {
+      this.$nextTick(() => {
+        const footer = document.querySelector('footer');
+        if (footer) {
+          this.observer = new IntersectionObserver(
+            ([entry]) => {
+              // Ocultar header solo si menú está cerrado
+              if (!this.mobileMenuOpen) {
+                this.hideHeader = entry.isIntersecting;
+              }
+            },
+            { threshold: 0.1 }
+          );
+          this.observer.observe(footer);
+        }
+      });
     }
   },
   computed: {
@@ -117,6 +131,8 @@ export default {
   }
 };
 </script>
+
+
 
 <style scoped>
 .navMenu {
@@ -133,7 +149,13 @@ export default {
   height: 100px;
   transform: translateY(0);
 }
-
+.navMenu.menu-open {
+  transform: translateY(0) !important;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000;
+}
 .navMenu.scrolled {
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -238,13 +260,16 @@ export default {
 .mobile-nav {
   display: none;
   position: fixed;
-  top: 100px;
-  right: -100%;
-  width: 300px;
-  height: calc(100vh - 100px);
+  top: 80px; /* Altura del header móvil */
+  right: 0;
+  transform: translateX(100%);
+  width: 100%;
+  max-width: 300px;
+  height: calc(100vh - 80px);
   background: var(--main-dark);
-  transition: right 0.3s ease;
+  transition: transform 0.3s ease;
   z-index: 999;
+  overflow-y: auto;
 }
 
 .navMenu.scrolled .mobile-nav {
@@ -253,7 +278,7 @@ export default {
 }
 
 .mobile-nav.open {
-  right: 0;
+  transform: translateX(0);
 }
 
 .mobile-links {
@@ -391,7 +416,11 @@ export default {
   body {
     overflow-x: hidden;
   }
-
+.mobile-nav {
+  max-width: 100vw;
+  overflow-x: hidden;
+  touch-action: pan-y;
+}
   .navMenu {
     height: 80px;
   }
@@ -408,21 +437,6 @@ export default {
   /* Mostrar menú móvil y overlay */
   .mobile-nav {
     display: block;
-    position: fixed;
-    top: 80px;
-    right: 0;
-    transform: translateX(100%);
-    width: 100%;
-    max-width: 300px;
-    height: calc(100vh - 80px);
-    background: var(--main-dark);
-    transition: transform 0.3s ease;
-    z-index: 999;
-    overflow-y: auto;
-  }
-
-  .mobile-nav.open {
-    transform: translateX(0);
   }
 
   .mobile-overlay {
@@ -435,12 +449,9 @@ export default {
   }
 }
 
-
 @media (max-width: 480px) {
-  
   .mobile-nav {
     width: 100%;
-    right: -100%;
   }
 
   .mobile-links {

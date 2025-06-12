@@ -1,8 +1,2 @@
-/    /index.html 200
-/terms      /terms  200
-/privacy    /privacy   200
-/about      /about   200
-/contact    /contact   200
-
-# Ruta de error 404
-/*    /notFound 404
+/*    /index.html   200
+/404  /index.html   200
