@@ -1,20 +1,18 @@
 <template>
-    <div class="container-about">
-  <div class="seccion-info">
-    <div class="logo-area">
-      <img class="logo" src="/images/about-imgs/logo-bg-light-text-dark-icon-red-about.png" alt="logo" />
-      
-      
+  <div class="container-about">
+    <div class="seccion-info">
+      <div class="logo-area">
+        <img class="logo" src="/images/about-imgs/logo-bg-light-text-dark-icon-red-about.png" alt="logo" />
+      </div>
+      <div class="texto-area">
+        <p>
+          Fundada entre 1975 y 1980, nuestra refaccionaria nació con el compromiso de ofrecer productos de calidad y un servicio confiable a los profesionales y amantes del motor. 
+        </p>
+        <p>
+          Con más de 40 años de experiencia, nos hemos consolidado como un referente en el sector, siempre con atención cercana y conocimiento necesario.
+        </p>
+      </div>
     </div>
-    <div class="texto-area">
-      <p>
-        Fundada entre 1975 y 1980, nuestra refaccionaria nació con el compromiso de ofrecer productos de calidad y un servicio confiable a los profesionales y amantes del motor. 
-      </p>
-      <p>
-        Con más de 40 años de experiencia, nos hemos consolidado como un referente en el sector, siempre con atención cercana y conocimiento necesario.
-      </p>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -23,47 +21,38 @@
 </script>
 
 <style scoped>
-.container-about{
+.container-about {
   background-color: white;
-  padding:10% 15% 5%;
-  
+  padding: 5% 10%;
 }
+
 .seccion-info {
-  
   display: flex;
   align-items: flex-start;
-  margin-bottom: 3rem;
+  gap: 2rem;
   background-color: white;
   padding: 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
+  border-radius: 12px;
+  flex-wrap: wrap;
 }
 
 .logo-area {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 160px;
+  min-width: 140px;
+  flex: 0 0 auto;
 }
 
 .logo {
-  width: 140px;
+  width: 120px;
+  max-width: 100%;
   height: auto;
 }
 
-.desde-text {
-  font-size: 0.75rem;
-  color: #444;
-  text-align: center;
-  margin-top: 1rem;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  letter-spacing: 0.05em;
-}
-
 .texto-area {
-  flex: 1;
+  flex: 1 1 300px;
   color: #333;
 }
 
@@ -73,22 +62,35 @@
   font-size: 1rem;
 }
 
-@media (max-width: 768px) {
+/* Responsive: tablets */
+@media (max-width: 1024px) {
+  .container-about {
+    padding: 8% 6%;
+  }
+
   .seccion-info {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
-  .logo-area {
-   padding-left: 20%;
-    align-items: center;
-    justify-content: center;
+  .logo {
+    width: 100px;
+  }
+}
+
+/* Responsive: móviles */
+@media (max-width: 600px) {
+  .container-about {
+    padding: 10% 4%;
   }
 
-  .desde-text {
-    writing-mode: horizontal-tb;
-    transform: none;
-    margin-left: 1rem;
+  .texto-area p {
+    font-size: 0.95rem;
+  }
+
+  .logo {
+    width: 80px;
   }
 }
 </style>

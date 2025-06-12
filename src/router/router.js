@@ -1,12 +1,13 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Importa tus componentes
 import Home from '@/components/views/SiteHome.vue'
 import About from '@/components/views/SiteAbout.vue'
 import Contact from '@/components/views/SiteContact.vue'
+import Shop from '@/components/views/SiteShop.vue'
 import Privacy from '@/components/items/privacyPolicy.vue'
 import Terms from '@/components/items/termsOfUse.vue'
+import Error from '@/components/views/ErrorNotFound.vue'
 
 const routes = [
   {
@@ -23,8 +24,8 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  }
-  , {
+  },
+  {
     path: '/about',
     name: 'About',
     component: About
@@ -33,11 +34,27 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/shop',
+    name: 'Shop',
+    component: Shop
+  },
+  {
+    path: '/notFound',
+    name: 'notFound',
+    component: Error
+  },
+  // Ruta comodín para errores 404
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: Error
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(), // Usa el modo historia del navegador
+  history: createWebHistory(),
   routes
 })
 

@@ -24,7 +24,8 @@
       </div>
       <div class="links-2">
         <a href="#"><img src="images/header/login-user-icon.png" alt="">Ingresar</a>
-        <a href="#"><img src="images/header/shop-icon.png" alt="">Comprar</a>
+        <!-- <a href="#"><img src="images/header/shop-icon.png" alt="">Comprar</a> -->
+        <router-link to="/shop"><img src="images/header/shop-icon.png" alt="">Comprar</router-link>
       </div>
     </nav>
 
@@ -38,9 +39,10 @@
           <a href="#" @click="closeMobileMenu">
             <img src="images/header/login-user-icon.png" alt="">Ingresar
           </a>
-          <a href="#" @click="closeMobileMenu">
+          <!-- <a href="#" @click="closeMobileMenu">
             <img src="images/header/shop-icon.png" alt="">Comprar
-          </a>
+          </a> -->
+          <router-link to="/shop"><img src="images/header/shop-icon.png" alt="">Comprar</router-link>
         </div>
       </div>
     </nav>
@@ -386,11 +388,15 @@ export default {
 
 /* Media queries */
 @media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
   .navMenu {
     height: 80px;
   }
 
-  /* Show mobile header, hide desktop nav */
+  /* Mostrar el encabezado móvil y ocultar el de escritorio */
   .mobile-header {
     display: flex;
   }
@@ -399,17 +405,36 @@ export default {
     display: none;
   }
 
-  /* Show mobile nav and overlay */
-  .mobile-nav,
+  /* Mostrar menú móvil y overlay */
+  .mobile-nav {
+    display: block;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    transform: translateX(100%);
+    width: 100%;
+    max-width: 300px;
+    height: calc(100vh - 80px);
+    background: var(--main-dark);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+  }
+
+  .mobile-nav.open {
+    transform: translateX(0);
+  }
+
   .mobile-overlay {
     display: block;
   }
 
-  .mobile-nav {
-    top: 80px;
-    height: calc(100vh - 80px);
+  .mobile-nav .mobile-links {
+    padding: 2rem;
+    height: 100%;
   }
 }
+
 
 @media (max-width: 480px) {
   
